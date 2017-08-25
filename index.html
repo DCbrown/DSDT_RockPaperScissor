@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RPS JavaScript</title>
+	<style>
+#game{
+    background-color: #a5c1ef;
+    border-radius: 15px;
+    width: 550px;
+    margin: 0 auto;
+}
+
+#userSelection
+{
+    text-align: center;
+    padding: 20px;
+    margin: 10px; 
+}
+
+#result
+{
+    text-align: center;
+    padding: 30px;
+    font-size: 1.2em;
+}
+
+.selection 
+{
+	float: left; 
+	list-style: none; 
+    border: 5px #F8F8F8 solid;
+    border-radius: 15px;
+    margin: 15px;
+}
+
+.selection:nth-of-type(4){
+	border: none;
+	margin-top: 20px;
+}
+
+button
+{
+    background-color: #ef9c1f;
+    color: white;
+	border-radius: 10px;
+	font-size: 100%;
+}
+
+#shoot
+{
+	background-color: blue;
+}
+
+.selection button
+{
+	width: 70px; 
+	padding: 10px;
+}
+
+
+ul{
+	margin: 0 auto;
+}
+
+#center{
+	margin-left: 20px;
+}
+
+	</style>
+	</head>
+<body>
+
+<div id="game">
+  <div id="userSelection">
+   <h1>Select your choice</h1>
+   <div id="center">
+		<div class="selection" id="stone">
+		  <button onclick="playWith('stone')">Stone</button>
+		</div>
+		<div class="selection" id="paper">
+		  <button onclick="playWith('paper')">Paper</button>   
+		</div>
+		<div class="selection" id="scissor">
+		  <button onclick="playWith('scissor')">Scissor</button>
+		</div>
+		<div class="selection">
+		  <button id="shoot" onclick="playGame()">Shoot!</button>
+		</div>
+	</div>	
+  </div><br>
+  <div id="result"></div>
+</div>
+<script type="text/javascript">
+	var userOption = undefined;
+
+	function playWith(option){
+   // first, we deselect the previous selected element (if exist)
+   if (userOption != undefined)
+   {
+      userSelectionElement = document.getElementById(userOption);
+      // we remove the purple border (if exist)
+      userSelectionElement.style.border = "5px #F8F8F8 solid";
+   }	 		
+   // then, we select the user option and we add 
+   // a purple border
+   userOption = option;
+   userSelectionElement = document.getElementById(option);
+   userSelectionElement.style.border = "5px #fcb750 solid";
+}
+
+function playGame(){
+  	 		var computerOption = Math.random();
+			if (computerOption <0.34){
+				computerOption = "stone";
+			}else if(computerOption <=0.67){
+				computerOption = "paper";
+			}else{
+				computerOption = "scissor";
+			}
+			
+			resultMessage = compare(userOption, computerOption);
+			
+			document.getElementById("result").innerHTML = 
+			"<p>User select: " + userOption + " - Computer select:" 
+			+ computerOption + "</p> <p>" + resultMessage + "</p>";
+			
+  	    }
+
+function compare(userSelection, computerSelection)
+		{
+			if(userSelection == undefined)
+			{
+				return "Please, select an option before play"
+			}	
+
+		    if (userSelection == computerSelection)
+		    {
+		       return "It is a draw!";
+		    }
+		    
+		    if (userSelection == "stone")
+		    {
+		        if (computerSelection == "scissor")
+		        {
+		             return "You win.";
+		        } else {
+		            return "The computer win. Try again.";
+		        }
+		        
+		    } else if (userSelection == "paper") {
+		        
+		        if (computerSelection == "stone")
+		        {
+		             return "You win." ;
+		        } else if("scissor") {
+		            return "The computer win. Try again." ;
+		        }
+		        
+		    } else if (userSelection == "scissor") {
+		      
+		        if (computerSelection == "stone")
+		        {
+		            return "The computer win. Try again.";
+		        }else{
+		            return "You win.";
+		        }
+		    }
+		}    	    
+</script>
+</body>
+</html>
